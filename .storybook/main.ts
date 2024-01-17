@@ -54,8 +54,6 @@ const config: StorybookConfig = {
         : [
               resolve('stories/**/*.mdx'),
               resolve('stories/**/*.stories.@(js|jsx|mjs|ts|tsx)'),
-              resolve(componentsPath, '**/__demo__', '**/*.mdx'),
-              resolve(componentsPath, '**/__demo__', '**/*.stories.@(js|jsx|mjs|ts|tsx)'),
               resolve(packagesPath, '**/__demo__', '**/*.mdx'),
               resolve(packagesPath, '**/__demo__', '**/*.stories.@(js|jsx|mjs|ts|tsx)')
           ],

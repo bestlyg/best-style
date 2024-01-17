@@ -41,6 +41,7 @@
         "father": "^4.3.7",
         "less-plugin-get-package": "^0.0.1",
         "package-json-extension": "^0.0.5",
+        "prettier": "^2.8.8",
         "react": "^18.2.0",
         "react-dom": "^18.2.0",
         "rimraf": "^3.0.2",
@@ -82,5 +83,8 @@
         "**/*.sass",
         "**/*.scss"
     ],
-    "description": "A core of best style."
+    "description": "A core of best style.",
+    "dependencies": {
+        "@emotion/unitless": "^0.8.1"
+    }
 }
