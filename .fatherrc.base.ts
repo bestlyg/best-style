@@ -19,7 +19,7 @@ export default defineConfig({
     prebundle: {
         deps: {}
     },
-    sourcemap: true,
+    sourcemap: !true,
     define: {
         ...Object.fromEntries(Object.entries(baseDefines).map(([k, v]) => [k, JSON.stringify(v)]))
     }

@@ -1,7 +1,9 @@
 {
     "extends": "../../tsconfig.base.json",
     "compilerOptions": {
-        "baseUrl": "."
+        "rootDir": ".",
+        "baseUrl": "src",
+        "outDir": "dts"
     },
-    "include": ["src/**/*.ts", "src/**/*.tsx", "__demo__/**/*.ts", "__demo__/**/*.tsx"]
+    "include": ["src/**/*.ts", "src/**/*.tsx"]
 }

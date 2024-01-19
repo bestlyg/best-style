@@ -12,7 +12,7 @@ export class BestCSSStyleRule extends BestCSSGroupingRule {
         return this.cssStyleRule.styleMap;
     }
     constructor(public cssStyleRule: CSSStyleRule) {
-        super(cssStyleRule);
+        super(cssStyleRule as CSSGroupingRule);
     }
     mount() {
         super.mount();
