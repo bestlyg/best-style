@@ -1,4 +1,4 @@
-import { mark, unmark } from '../utils';
+import { mark, unmark, get } from '../utils';
 import { RuleContainer } from './rule-container';
 
 export interface RuleOptions {

@@ -8,7 +8,6 @@ export interface StyleRuleOptions {
 }
 
 export class StyleRule extends Rule {
-    parent: RuleContainer | null = null;
     cssRule: CSSStyleRule | null = null;
     selector: string;
     prefix: string;
@@ -18,10 +17,10 @@ export class StyleRule extends Rule {
         this.selector = selector ?? `${this.prefix}-${getRandomSelector()}`;
     }
     mount({
-        ruleContainer,
+        parent,
         properties = {}
     }: {
-        ruleContainer: RuleContainer;
+        parent: RuleContainer;
         properties?: CSSProperties;
     }) {
         return super
@@ -29,9 +28,9 @@ export class StyleRule extends Rule {
                 ruleContainer,
                 selector: `.${this.selector}`
             })
-            .safeUpdate(properties);
+            .safetyUpdate(properties);
     }
-    safeUpdate(properties?: CSSProperties) {
+    safetyUpdate(properties?: CSSProperties) {
         for (const key of Object.keys(properties)) {
             properties[key] = transformStyleValue(key, properties[key]);
         }
