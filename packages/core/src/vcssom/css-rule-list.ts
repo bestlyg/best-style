@@ -3,7 +3,7 @@ import { mark, unmark } from '../utils';
 export class BestCSSRuleList {
     constructor(public cssRuleList: CSSRuleList) {}
     item(index: number) {
-        this.cssRuleList.item(index);
+        return this.cssRuleList.item(index);
     }
     get length() {
         return this.cssRuleList.length;

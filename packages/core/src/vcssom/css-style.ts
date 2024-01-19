@@ -12,10 +12,11 @@ export class BestStyle {
     constructor({ document }: StyleOptions) {
         this.document = document;
         this.style = document.createElement('style');
+        this.style.dataset['bestStyle'] = 'css';
     }
     mount() {
         this.document.head.appendChild(this.style);
-        this.sheet = new BestCSSStyleSheet(this.style.sheet);
+        this.sheet = new BestCSSStyleSheet(this.style.sheet!);
         this.sheet.mount();
         mark(this.style, BestStyle.name, this);
         return this;

@@ -1,6 +1,11 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { useArgs } from '@storybook/preview-api';
-import { BestStyle } from '@best-style/core/src';
+import {
+    BestCSSStyleRule,
+    BestStyle,
+    getRandomClassNameSelector,
+    createSpecificBestCSSRule
+} from '@best-style/core/src';
 import { useEffect, useMemo, useInsertionEffect, useState } from 'react';
 
 const meta: Meta = {
@@ -21,40 +26,48 @@ export const Primary: Story = {
         children: 'child'
     },
     render: function Render(args) {
-        const [w, setW] = useState(1);
         const style = useMemo(() => new BestStyle({ document }), []);
-        // const styleRule = useMemo(() => new StyleRule(), []);
+        const classNameSelector = useMemo(() => getRandomClassNameSelector(), []);
+        const [styleRule, setStyleRule] = useState<BestCSSStyleRule>();
+        const [w, setW] = useState(1);
         useInsertionEffect(() => {
+            styleRule?.safetyUpdate({ width: w * 10 });
+        }, [w]);
+        useEffect(() => {
             style.mount();
-            // styleRule.mount({
-            //     ruleContainer: style.ruleContainer!,
-            //     properties: { color: 'red', background: 'blue', width: 100 * w }
-            // });
-            // style.ruleContainer.insertRule();
-            // style.insertStyleRule('.a', {
-            //     color: 'blue'
-            // });
-            // style.insertStyleRule('.b', {
-            //     color: 'red'
-            // });
+            const index = style.sheet.insertRule(`.${classNameSelector}{}`);
+            const styleRule = createSpecificBestCSSRule(
+                style.sheet.cssRules.item(index)!
+            ) as BestCSSStyleRule;
+            styleRule.safetyUpdate({ width: w * 10, background: 'blue' });
+            setStyleRule(styleRule);
+            console.log(style, styleRule);
             return () => {
-                // styleRule.unmount();
                 style.unmount();
             };
         }, []);
         console.log(style);
         return (
             <div>
-                <div className={`a b`}>123</div>
-                {/* <button
+                <div className={`a b ${classNameSelector}`}>123</div>
+                <button
                     onClick={() => {
                         console.log('click', styleRule);
-                        styleRule.safetyUpdate({ width: 100 * (w + 1) });
                         setW(w + 1);
                     }}
                 >
                     update
-                </button> */}
+                </button>
+                <button
+                    onClick={() => {
+                        style.sheet.refreshIndex();
+                        if (styleRule) {
+                            style.sheet.removeRule(styleRule);
+                        }
+                    }}
+                >
+                    unmount
+                </button>
             </div>
         );
     }
